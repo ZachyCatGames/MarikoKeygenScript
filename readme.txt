@@ -1,4 +1,4 @@
-Generate the Nintendo Switch's `mariko_master_kek_source_xx`, `master_kek_xx`, and `master_key_xx` from a Mariko package1 binary.
+Generate the Nintendo Switch's `mariko_master_kek_source_xx`, `master_kek_xx`, and `master_key_xx` keys from a Mariko package1 binary.
 
 1) Copy keys_template.py as keys.py.
 2) Add mariko_keks & mariko_beks to keys.py.

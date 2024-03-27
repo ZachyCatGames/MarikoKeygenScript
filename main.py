@@ -14,13 +14,13 @@ MASTER_KEY_SOURCE = bytes.fromhex("d8a2410ac6c59001c61d6a267c513f3c") # constant
 
 class MarikoOemBootloader:
     def __init__(self, pk11_data):
-        (self.crypt_hash, 
-        self.signature, 
-        self.random, 
-        self.hash, 
-        self.version, 
-        self.size, 
-        self.load_addr, 
+        (self.crypt_hash,
+        self.signature,
+        self.random,
+        self.hash,
+        self.version,
+        self.size,
+        self.load_addr,
         self.entry_point,
         self.reserved) = struct.unpack("16s256s32s32sIIII16s", pk11_data[0:0x170])
 
@@ -42,7 +42,7 @@ def main(argv):
     # Read package1 binary.
     with open(argv[1], "rb") as fp:
         pk11_data = fp.read()
-    
+
     # Decode pk11 header.
     header = MarikoOemBootloader(pk11_data)
 
@@ -56,6 +56,7 @@ def main(argv):
         return 0
 
     # Find where the mkek sources are.
+    # In every case I've seen they're at addressof(OHAYO) + 0x30.
     mkek_src_offset = pk11_dec.find(b"OHAYO\n") + 0x30
     mkek_src_dev = pk11_dec[mkek_src_offset:mkek_src_offset + 0x10]
     mkek_src_prd = pk11_dec[mkek_src_offset + 0x10:mkek_src_offset + 0x20]
